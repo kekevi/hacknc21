@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, json, jsonify
 
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ def hello_world():
 @app.get("/user/<uid>")
 def user_summary(uid):
     # return user's overall info
-    return ""
+    return
 
 @app.get("/user/<uid>/limits")
 def user_limits(uid):
