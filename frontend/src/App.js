@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import {Main} from './Main'
 import { Progress } from './Progress';
 import './App.css';
+import { PieChartImpl } from './PieChart';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       </header>
       <body>
         <Main></Main>
-        <Progress></Progress>
+        <Progress percentInner = {40}  percentGro= {20}  percentEdu={50} percentLife={70} percentElse = {25}></Progress>
+        <PieChartImpl></PieChartImpl>
       </body>
     </div>
   );

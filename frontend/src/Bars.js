@@ -5,12 +5,17 @@ import { useEffect,useState } from "react";
 export function Bars(props) {
  //  let [percent,setPercent] =  useState(20)
 let percent = props.percent;
+let percentInner = props.percentInner;
     return (
         <div className="progress">
-            <h1>My Spending</h1>
+            <h4>{props.name}</h4>
             <div>
                 <div  className="groceryBar">
-                    <div style={{width: `${percent}%`}} className="groceryBarProg"></div>
+                    <div style={{width: `${percent}%`}} className="groceryBarProg">
+                    
+                          <div style={{width: `${percentInner}%`}} className="groceryBarProgInner"></div>
+     
+                    </div>
                 </div>
 
             </div>
