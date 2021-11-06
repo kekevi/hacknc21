@@ -17,13 +17,26 @@ export function PieChartImpl(props) {
             text: "Trip Expenses",
             fontFamily: "calibri"
         },
+        subtitles: [{
+            text: "Duc Anh",
+            verticalAlign: "center",
+            fontSize: 24,
+            dockInsidePlotArea: true,
+            fontFamily: 'calibri',
+        }],
+        height: 300,
+       
         data: [{
-            type: "pie",
+            type: "doughnut",
            
             indexLabelFontFamily: "calibri",
-
+            
+                //shownInLegend : true,
             indexLabel: "{label}: {y}%",
-            indexLabelPlacement: "inside",		
+          
+            // indexLabelPlacement: "inside",
+            
+            
             startAngle: -90,
             labelFontFamily:'calibri',
             dataPoints: [

@@ -19,10 +19,8 @@ export function Progress(props) {
     return (
         <div className = "progress">
         <h3>My Spending</h3>
-       <Bars name = {"Grocery"} percent = {percentGro} percentInner = {percentInner} ></Bars>  
-       <Bars name = {"Education"}percent = {percentEdu} ></Bars>  
-       <Bars name = {"Lifestyle"} percent = {percentLife} ></Bars>  
-       <Bars name = {"Else"} percent = {percentElse} ></Bars>   
+       <Bars name = {"Progress"} percent = {percentGro} percentInner = {percentInner} ></Bars>  
+      
        <button onClick = {()=>{
            let id = setInterval(()=>{
                 
