@@ -4,20 +4,25 @@ import "./style/Login.css";
 import ladderlogo from "./images/ladder.png";
 
 
-export function Login({login}) {
+export function Login({ login, update }) {
     const [errorMsg, setErrorMsg] = useState("");
     let user;
-    const handleLoginClick = () => {
+    const handleLoginClick = async () => {
         if (user == 0) {
+            getInfo(user).then(val => {return val.json()}).then((val) => {update(val)});
             login(user);
+
         } else {
             setErrorMsg("Invalid user id. Please contact your bank for more information.");
         }
+
+
+
     }
     return (
         <div className="page">
             <div className="login-header">
-                <img className="logo" src={ladderlogo}/>
+                <img className="logo" src={ladderlogo} />
                 <h1>Ladder</h1>
             </div>
             <section className="login-body">
@@ -25,7 +30,7 @@ export function Login({login}) {
                 <form>
                     <div className="formobj">
                         <label for="userid">User ID: </label>
-                        <input name="userid" type="number" onChange={(e) => user = Number(e.target.value)}/>
+                        <input name="userid" type="number" onChange={(e) => user = Number(e.target.value)} />
                     </div>
                     <div className="formobj">
                         <label for="password">Password: </label>
@@ -47,5 +52,16 @@ export function Login({login}) {
         </div>
     )
 
+
+}
+
+function getInfo(user) {
+    const response = fetch(`http://localhost:5000/user/${user}`, {
+        method: 'GET',
+
+    })
+    
+
+    return response;
 
 }
