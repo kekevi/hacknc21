@@ -1,11 +1,25 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import "./style/Login.css";
 import ladderlogo from "./images/ladder.png";
+import { usePlaidLink } from "react-plaid-link";
 
 
 export function Login({ login, update, update2 }) {
     const [errorMsg, setErrorMsg] = useState("");
+
+    const [linkToken, setLinkToken] = useState(null);
+    const generateToken = async () => {
+        const response = await fetch('/api/create_link_token', {
+        method: 'POST',
+        });
+        const data = await response.json();
+        setLinkToken(data.link_token);
+    };
+    useEffect(() => {
+        generateToken();
+    }, []);
+
     let user;
     const handleLoginClick = async () => {
         if (user == 0) {
@@ -33,6 +47,7 @@ export function Login({ login, update, update2 }) {
 
 
     }
+
     return (
         <div className="page">
             <div className="login-header">
@@ -44,14 +59,21 @@ export function Login({ login, update, update2 }) {
                 <form>
                     <div className="formobj">
                         <label for="userid">User ID: </label>
+<<<<<<< HEAD
 
                         <input id="userid" type="number" onChange={(e) => user = Number(e.target.value)} />
+=======
+                        <input id="userid" type="number" onChange={(e) => user = Number(e.target.value)}/>
+>>>>>>> 0d000a00dc729836de434603e681091679d9ecde
                     </div>
                     <div className="formobj">
                         <label for="password">Password: </label>
                         <input id="password" type="password" />
                     </div>
-                    <button className="dark-button" type="button" onClick={handleLoginClick}>Log In</button>
+                    <div className="row">
+                        <button className="dark-button" type="button" onClick={handleLoginClick}>Log In</button>
+                        <button className="dark-button" type="button" onClick={generateToken}>Sign Up</button>
+                    </div>
                 </form>
                 <p>{errorMsg}</p>
             </section>
@@ -66,7 +88,33 @@ export function Login({ login, update, update2 }) {
             </section>
         </div>
     )
+}
 
+  const Link= (props) => {
+    const onSuccess = React.useCallback((public_token, metadata) => {
+      // send public_token to server
+      const response = fetch('/api/set_access_token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ public_token }),
+      });
+      // Handle response ...
+    }, []);
+    const config = {
+      token: props.linkToken,
+      onSuccess,
+    };
+    const { open, ready } = usePlaidLink(config);
+    return (
+      <button onClick={() => open()} disabled={!ready}>
+        Link account
+      </button>
+    );
+
+// function SignupModal () {
+//     return {
 
 }
 
