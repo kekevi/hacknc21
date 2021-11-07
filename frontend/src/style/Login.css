@@ -58,3 +58,7 @@ section {
     text-align: justify;
     color: #eeeeee;
 }
+
+.row button {
+    margin: 0 10px;
+}
