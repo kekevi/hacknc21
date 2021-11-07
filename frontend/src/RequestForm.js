@@ -2,11 +2,11 @@ import React from "react";
 import "./style/RequestForm.css";
 import { useState } from "react";
 
-export function RequestForm({id}) {
+export function RequestForm({id, goto}) {
   let amount;
   let type;
   const [errorMsg, setErrorMsg] = useState("");
-  const [status, setStatus] = useState()
+  const [status, setStatus] = useState(null)
 
   const handleSubmit = async () => {
     if (amount <= 0 || !type) {
@@ -21,13 +21,43 @@ export function RequestForm({id}) {
     console.log(response)
     // error in backend is that we should be passing a string and the backend looks up the MCC
     // but currently it is expecting the reverse
-    
+    if (response.approved && !response.prePayRequired) {
+      setStatus(true);
+    } else if (response.approved && response.prePayRequired) {
+      setStatus(response.prePayAmount);
+    } else {
+      setStatus(false);
+    }
   };
+
+  const terminal = () => {
+    switch(status) {
+      case null:
+        return (<section className="terminal" style={{visibility: 'hidden'}}/>);
+      case true:
+        return (
+          <section className="terminal">
+            <h2>Transaction Approved</h2>
+          </section>
+        )
+      case false:
+        return (
+          <section className="terminal">
+            <h2>Transaction Denied :(</h2>
+          </section>
+        )
+      default:
+        return (
+          <section className="terminal">
+            <h2>Prepay Required</h2>
+          </section>
+      )
+    }
+  }
+
   return (
     <div className="page request-page">
-      <section className="terminal">
-        
-      </section>
+      {terminal()}
       <form className="request-form">
         <svg className="pagefold" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 7.62939e-06H90L0 90V7.62939e-06Z" fill="#FABB3D"/>
@@ -53,6 +83,7 @@ export function RequestForm({id}) {
         </label>
         <button className="dark-button" type="button" onClick={handleSubmit}>Submit Request</button>
         <p>{errorMsg}</p>
+        <button className="dark-button" type="button" onClick={() => goto('dashboard')}>Back to Dashboard</button>
       </form>
     </div>
   );
