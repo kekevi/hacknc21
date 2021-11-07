@@ -2,37 +2,60 @@ import React from "react";
 import { useState, useEffect} from "react";
 import "./style/Login.css";
 import ladderlogo from "./images/ladder.png";
-import { usePlaidLink } from "react-plaid-link";
+import {
+    PlaidLink,
+    usePlaidLink,
+    PlaidLinkOptions,
+    PlaidLinkOnSuccess,
+  } from 'react-plaid-link';
+import axios from "axios";
+const plaid = require("plaid");
 
 
 export function Login({ login, update }) {
     const [errorMsg, setErrorMsg] = useState("");
 
     const [linkToken, setLinkToken] = useState(null);
-    const generateToken = async () => {
-        const response = await fetch('/api/create_link_token', {
-        method: 'POST',
+    const [transactions, setTransactions] = useState(null);
+    const handleOnSuccess = function (public_token, metadata) {
+        // send token to client server
+        axios.post("/auth/public_token", {
+          public_token: public_token
         });
-        const data = await response.json();
-        setLinkToken(data.link_token);
-    };
-    useEffect(() => {
-        generateToken();
-    }, []);
+      }
+    
+    const handleOnExit = function () {
+    // handle the case when your user exits Link
+    // For the sake of this tutorial, we're not going to be doing anything here.
+    }
+
+    const handleClick = function (res) {
+        axios.get("/transactions").then(res => {
+            setTransactions(res.data);
+        });
+    }
 
     let user;
     const handleLoginClick = async () => {
         if (user == 0) {
-            getInfo(user).then(val => {return val.json()}).then((val) => {update(val)});
             login(user);
-
+            // getInfo(user).then(val => {return val.json()}).then((val) => {update(val)});
         } else {
             setErrorMsg("Invalid user id. Please contact your bank for more information.");
         }
-
-
-
     }
+
+    const link = <PlaidLink
+        clientName="React Plaid Setup"
+        env="sandbox"
+        product={["auth", "transactions"]}
+        publicKey="add your public key here"
+        onExit={handleOnExit}
+        onSuccess={handleOnSuccess}
+        className="test"
+    >
+        Open Link and connect your bank!
+    </PlaidLink>;
 
     return (
         <div className="page">
@@ -53,7 +76,7 @@ export function Login({ login, update }) {
                     </div>
                     <div className="row">
                         <button className="dark-button" type="button" onClick={handleLoginClick}>Log In</button>
-                        <button className="dark-button" type="button" onClick={generateToken}>Sign Up</button>
+                        <button className="dark-button" type="button" onClick={handleClick}>Sign Up</button>
                     </div>
                 </form>
                 <p>{errorMsg}</p>
@@ -71,41 +94,35 @@ export function Login({ login, update }) {
     )
 }
 
-  const Link= (props) => {
-    const onSuccess = React.useCallback((public_token, metadata) => {
-      // send public_token to server
-      const response = fetch('/api/set_access_token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ public_token }),
-      });
-      // Handle response ...
-    }, []);
-    const config = {
-      token: props.linkToken,
-      onSuccess,
-    };
-    const { open, ready } = usePlaidLink(config);
-    return (
-      <button onClick={() => open()} disabled={!ready}>
-        Link account
-      </button>
-    );
 
-// function SignupModal () {
-//     return {
+// var PLAID_CLIENT_ID = "your client ID here";
+// var PLAID_SECRET = "your secret key here";
+// var PLAID_PUBLIC_KEY = "your public key here";
+// var PLAID_ENV = "sandbox";
 
-}
+// var client = new plaid.Client(
+//     PLAID_CLIENT_ID,
+//     PLAID_SECRET,
+//     PLAID_PUBLIC_KEY,
+//     plaid.environments[PLAID_ENV],
+//     { version: "2019-05-29", clientApp: "Plaid Quickstart" }
+//   );
 
-function getInfo(user) {
-    const response = fetch(`http://localhost:5000/user/${user}`, {
-        method: 'GET',
-
-    })
-    
-
-    return response;
-
-}
+// let startDate = "2021-10-01";
+// let endDate = "2021-11-08";
+//   console.log("made it past variables");
+//   client.getTransactions(
+//     ACCESS_TOKEN,
+//     startDate,
+//     endDate,
+//     {
+//       count: 250,
+//       offset: 0
+//     },
+//     function(error, transactionsResponse) {
+//         // TRANSACTIONS LOGGED BELOW! 
+//         // They will show up in the terminal that you are running nodemon in.
+//         console.log(transactionsResponse);
+//       return transactionsResponse;
+//     }
+// );

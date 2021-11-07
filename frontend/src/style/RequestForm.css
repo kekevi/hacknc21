@@ -61,3 +61,8 @@ img {
 .finished {
     margin-bottom: 50px;
 }
+
+.terminal button {
+    margin: 20px auto;
+    bottom: 30px;
+}

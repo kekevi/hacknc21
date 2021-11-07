@@ -24,6 +24,7 @@ users = [
          {'data_approved': date(2021, 10, 15), 'amount': 2000, 'category': 'transportation'}
      ],
      'limits': {
+         "groceries": 300,
          "transportation": 100,
          "utilities": 500,
          "fuel": 100,

@@ -45,18 +45,23 @@ export function RequestForm({id, goto}) {
         return (
           <section className="terminal">
             <h2>Transaction Approved</h2>
+            <p>Swipe your card at the terminal!</p>
+            <button className="light-button">I've swiped!</button>
           </section>
         )
       case false:
         return (
           <section className="terminal">
             <h2>Transaction Denied :(</h2>
+            <p>We're sorry. We're trying our best to keep you at your budget.</p>
           </section>
         )
       default:
         return (
           <section className="terminal">
             <h2>Prepay Required</h2>
+            <p>You are close to your non-essentials limit. Please prepay part of your purchase to prevent you from going over it.</p>
+            <button className="light-button">Open prepay prompt</button>
           </section>
       )
     }
