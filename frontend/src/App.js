@@ -33,13 +33,16 @@ function App() {
         )
       case "dashboard":
         return (
-          <div>
-            <Main id={userId}></Main>
-
-            <Progress percentInner={userBalance[0]} percentGro={userBalance[1]} uid={userId} amount={userBalance[2]} ></Progress>
-            <PieChartImpl spent = {userSpent}></PieChartImpl>
-            <button onClick={() => setRoute('transactions')}>See Transaction History</button>
-            <button onClick={() => setRoute('request_spend')}>Spend Request</button>
+          <div className="dashboard">
+            <div style={{'background-color': 'white'}}>
+              <Main id={userId}></Main>
+            </div>
+            <div>
+              <Progress percentInner={userBalance[0]} percentGro={userBalance[1]} uid={userId} amount={userBalance[2]} ></Progress>
+              <PieChartImpl spent = {userSpent}></PieChartImpl>
+            </div>
+              <button className="light-button" onClick={() => setRoute('transactions')}>See Transaction History</button>
+              <button className="light-button" onClick={() => setRoute('request_spend')}>Spend Request</button>
           </div>
         )
       case "transactions":
