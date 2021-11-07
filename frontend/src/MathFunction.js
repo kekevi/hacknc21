@@ -22,12 +22,14 @@ function getSpent(current) {
 
         let val = parseInt(100 * (current[i] / sum))
 
+       
         if (val == 0) {
             continue;
         } else { spent[i] = parseInt(100 * (current[i] / sum)) }
 
 
     }
+    console.log(spent)
     return spent;
 
 }

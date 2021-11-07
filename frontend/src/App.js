@@ -27,8 +27,8 @@ function App() {
             setBalance(getPercentages(val.currentBalance, val.initialOldBalance, val.totalPaidBalance));
 
           }} update2={(val1, val2) => {
-            setLimit(getSpent(val1))
-            setSpent(val2)
+            setLimit((val1))
+            setSpent(getSpent(val2))
           }} />
         )
       case "dashboard":

@@ -59,12 +59,9 @@ export function Login({ login, update, update2 }) {
                 <form>
                     <div className="formobj">
                         <label for="userid">User ID: </label>
-<<<<<<< HEAD
 
                         <input id="userid" type="number" onChange={(e) => user = Number(e.target.value)} />
-=======
-                        <input id="userid" type="number" onChange={(e) => user = Number(e.target.value)}/>
->>>>>>> 0d000a00dc729836de434603e681091679d9ecde
+                        
                     </div>
                     <div className="formobj">
                         <label for="password">Password: </label>
