@@ -4,13 +4,27 @@ import "./style/Login.css";
 import ladderlogo from "./images/ladder.png";
 
 
-export function Login({ login, update }) {
+export function Login({ login, update, update2 }) {
     const [errorMsg, setErrorMsg] = useState("");
     let user;
     const handleLoginClick = async () => {
         if (user == 0) {
-            getInfo(user).then(val => {return val.json()}).then((val) => {update(val)});
+
+            let limit = [];
+            let spent = [];
+
+            getInfo(user).then(val => { return val.json() }).then((val) => { update(val) });
+            getLimit(user).then(val => { return val.json() }).then((val) => {
+                for(let i = 0; i < val.length; i ++){
+                    limit[i] = val[i].limit;
+                    spent[i] = val[i].used;
+                    console.log(limit[i])
+                }
+                update2(limit,spent);
+            });
+
             login(user);
+
 
         } else {
             setErrorMsg("Invalid user id. Please contact your bank for more information.");
@@ -30,11 +44,8 @@ export function Login({ login, update }) {
                 <form>
                     <div className="formobj">
                         <label for="userid">User ID: </label>
-<<<<<<< HEAD
-                        <input name="userid" type="number" onChange={(e) => user = Number(e.target.value)} />
-=======
-                        <input id="userid" type="number" onChange={(e) => user = Number(e.target.value)}/>
->>>>>>> d226e3ba466b38d3af63e0292096ddbafbd8eccf
+
+                        <input id="userid" type="number" onChange={(e) => user = Number(e.target.value)} />
                     </div>
                     <div className="formobj">
                         <label for="password">Password: </label>
@@ -64,7 +75,17 @@ function getInfo(user) {
         method: 'GET',
 
     })
-    
+
+
+    return response;
+
+}
+
+function getLimit(user) {
+    const response = fetch(`http://localhost:5000/user/${user}/limits`, {
+        method: 'GET',
+
+    })
 
     return response;
 

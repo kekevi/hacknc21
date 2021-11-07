@@ -40,12 +40,12 @@ export function PieChartImpl(props) {
             startAngle: -90,
             labelFontFamily:'calibri',
             dataPoints: [
-                { y: 20, label: "Airfare" },
-                { y: 24, label: "Food & Drinks" },
-                { y: 20, label: "Accomodation" },
-                { y: 14, label: "Transportation" },
-                { y: 12, label: "Activities" },
-                { y: 10, label: "Misc" }	
+              
+                { y: props.spent[1], label: "Utilities" },
+                { y: props.spent[2], label: "Fuel" },
+                { y: props.spent[3], label: "Home Improvement" },
+                { y: props.spent[4], label: "Electronics" },
+             
             ]
         }]
     }
