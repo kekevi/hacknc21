@@ -1,14 +1,18 @@
 import React from "react";
+import ladderlogo from "./images/ladder.png";
 
 
 export function Login(props) {
 
     return (
         <div>
-            <h1>Welcome to Name</h1>
-            <h1>Please Sign in</h1>
+            <div className="login-title">
+                <img src={ladderlogo} width="128px"/>
+                <h1>Welcome to LadderCard</h1>
+            </div>
+            <h2>Login</h2>
             <form>
-                <label>Test</label>
+                <label>UserID</label>
                 <input id="loginForm" type="number" />
             </form>
         </div>
