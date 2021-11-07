@@ -5,7 +5,7 @@ import ladderlogo from "./images/ladder.png";
 import { usePlaidLink } from "react-plaid-link";
 
 
-export function Login({login}) {
+export function Login({ login, update }) {
     const [errorMsg, setErrorMsg] = useState("");
 
     const [linkToken, setLinkToken] = useState(null);
@@ -21,18 +21,23 @@ export function Login({login}) {
     }, []);
 
     let user;
-    const handleLoginClick = () => {
+    const handleLoginClick = async () => {
         if (user == 0) {
+            getInfo(user).then(val => {return val.json()}).then((val) => {update(val)});
             login(user);
+
         } else {
             setErrorMsg("Invalid user id. Please contact your bank for more information.");
         }
+
+
+
     }
 
     return (
         <div className="page">
             <div className="login-header">
-                <img className="logo" src={ladderlogo}/>
+                <img className="logo" src={ladderlogo} />
                 <h1>Ladder</h1>
             </div>
             <section className="login-body">
@@ -92,5 +97,15 @@ export function Login({login}) {
 // function SignupModal () {
 //     return {
 
-//     }
+}
+
+function getInfo(user) {
+    const response = fetch(`http://localhost:5000/user/${user}`, {
+        method: 'GET',
+
+    })
+    
+
+    return response;
+
 }
