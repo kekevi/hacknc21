@@ -25,13 +25,13 @@ export function Login({login}) {
                 <form>
                     <div className="formobj">
                         <label for="userid">User ID: </label>
-                        <input name="userid" type="number" onChange={(e) => user = Number(e.target.value)}/>
+                        <input id="userid" type="number" onChange={(e) => user = Number(e.target.value)}/>
                     </div>
                     <div className="formobj">
                         <label for="password">Password: </label>
-                        <input name="password" type="password" />
+                        <input id="password" type="password" />
                     </div>
-                    <button type="button" onClick={handleLoginClick}>Login</button>
+                    <button className="dark-button" type="button" onClick={handleLoginClick}>Log In</button>
                 </form>
                 <p>{errorMsg}</p>
             </section>

@@ -1,31 +1,46 @@
 import React from "react";
 import "./style/RequestForm.css";
-import { useEffect,useState } from "react";
+import { useState } from "react";
 
-export function RequestForm(props) {
-  const [amount, setAmount] = useState(0);
-  const [type, setType] = useState("");
+export function RequestForm({id}) {
+  let amount;
+  let type;
+  const [errorMsg, setErrorMsg] = useState("");
+  const [status, setStatus] = useState()
+
   const handleSubmit = async () => {
-    if (amount <= 0 || type === "") {
-      console.log("ERROR, invalid request values");
+    if (amount <= 0 || !type) {
+      setErrorMsg("Error - amount must be greater than zero and a type must be selected.");
       return;
-    }
-    
-    const response = fetch(`http://localhost:5000/user/${props.userId}/request`, {
+    }  
+    console.log("type", type);
+    const response = await (await fetch(`http://localhost:5000/user/${id}/request`, {
       method: 'POST',
       body: {amount, category: type}
-    });
-    // waiting for backend to specify how this works
+    }).catch(setErrorMsg("Failed to reach database. Try again in a couple seconds."))).json();
+    console.log(response)
+    // error in backend is that we should be passing a string and the backend looks up the MCC
+    // but currently it is expecting the reverse
+    
   };
   return (
-    <div>
-      <h1>Request an Essential Purchase</h1>
+    <div className="page request-page">
+      <section className="terminal">
+        
+      </section>
       <form className="request-form">
-        <label>Amount 
-          <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))} />
+        <svg className="pagefold" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 7.62939e-06H90L0 90V7.62939e-06Z" fill="#FABB3D"/>
+        <path d="M90 90L-1.49012e-06 90L90 6.91414e-06L90 90Z" fill="#C4C4C4"/>
+        </svg>
+
+        <h2>Request Spending</h2>
+        <label>Amount $
+          <input type="number" value={amount} onChange={e => amount = Number(e.target.value)} />
         </label>
         <label>Type
-          <select value={type} onChange={e => setType(e.target.value)} name="transaction_type" id="transaction_type_dropdown">
+          <select value={type} onChange={e => type = e.target.value} name="transaction_type" id="transaction_type_dropdown">
+            <option disabled selected value>-- Select an Option --</option>
             <option value="groceries">Groceries</option>
             <option value="restaurants">Restaurants</option>
             <option value="clothing">Clothing and Fashion</option>
@@ -36,7 +51,8 @@ export function RequestForm(props) {
             <option value="home_improvement">Home Improvement</option>
           </select>
         </label>
-        <button type="button" onClick={handleSubmit}>Submit Request</button>
+        <button className="dark-button" type="button" onClick={handleSubmit}>Submit Request</button>
+        <p>{errorMsg}</p>
       </form>
     </div>
   );

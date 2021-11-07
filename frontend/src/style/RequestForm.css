@@ -1,4 +1,39 @@
 .request-form {
+    position: relative;
     display: flex;
     flex-direction: column;
+    background-color: white;
+    height: 55%;
+    width: 85%;
+}
+
+.request-form input, .request-form select {
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+.request-form h2 {
+    padding-top: 60px;
+    margin-bottom: 20px;
+}
+
+.terminal {
+    margin-top: 10%;
+    background-color: #282c34;
+    height: 30%;
+    width: 80%;
+}
+
+.pagefold {
+    position: absolute;
+    left:0;
+    top:0;
+    width: 70px;
+    height: 70px;
+}
+
+.request-page {
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FABB3D;
 }
