@@ -11,10 +11,10 @@ export function PieChartImpl(props) {
     const options = {
         animationEnabled: true,
         exportEnabled: true,
-        theme: "light1", // "light1", "dark1", "dark2"
+          // theme: #FABB3D, // "light1", "dark1", "dark2"
         
         title:{
-            text: "Trip Expenses",
+            text: "Expenses",
             fontFamily: "calibri"
         },
         subtitles: [{
@@ -25,7 +25,7 @@ export function PieChartImpl(props) {
             fontFamily: 'calibri',
         }],
         height: 300,
-       
+        backgroundColor: "#FABB3D",
         data: [{
             type: "doughnut",
            
