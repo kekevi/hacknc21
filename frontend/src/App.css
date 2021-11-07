@@ -149,3 +149,15 @@ html, body, #root {
 
 
 }
+
+.dashboard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #282c34;
+}
+
+.dashboard button {
+  margin: auto;
+}
