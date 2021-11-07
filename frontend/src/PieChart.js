@@ -18,7 +18,7 @@ export function PieChartImpl(props) {
             fontFamily: "calibri"
         },
         subtitles: [{
-            text: "Duc Anh",
+            text: "Sandy",
             verticalAlign: "center",
             fontSize: 24,
             dockInsidePlotArea: true,
@@ -41,10 +41,10 @@ export function PieChartImpl(props) {
             labelFontFamily:'calibri',
             dataPoints: [
               
-                { y: props.spent[1], label: "Utilities" },
-                { y: props.spent[2], label: "Fuel" },
-                { y: props.spent[3], label: "Home Improvement" },
-                { y: props.spent[4], label: "Electronics" },
+                { y: props.spent[1], label: "Utilities" , color: "rgb(226, 106, 44)"},
+                { y: props.spent[2], label: "Fuel" , color: "rgb(255, 130, 67)"},
+                { y: props.spent[3], label: "Home Improvement", color: "rgb(253, 166, 93)" },
+                { y: props.spent[4], label: "Electronics" , color: "rgb(255, 208, 127)"},
              
             ]
         }]

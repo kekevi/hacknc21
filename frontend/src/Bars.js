@@ -13,7 +13,8 @@ let percentInner = props.percentInner;
                 <div  className="groceryBar">
                     <div style={{width: `${percent}%`}} className="groceryBarProg">
                     
-                          <div style={{width: `${percentInner}%`}} className="groceryBarProgInner"></div>
+                          <div style={{width: `${percentInner}%`}} className="groceryBarProgInner"><p>{percentInner+"%"}</p>
+                          </div>
      
                     </div>
                 </div>

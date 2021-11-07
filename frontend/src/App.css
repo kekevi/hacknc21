@@ -90,7 +90,7 @@ html, body, #root {
   width: 70%;
   margin: auto;
   border-radius: 5px;
-  background-color: rgb(177, 230, 147);
+  background-color: rgb(233, 17, 14);
 }
 
 .groceryBarProg{
@@ -110,11 +110,11 @@ html, body, #root {
  
   
   height:20px;
-  background-color: rgb(233, 17, 14);
+  background-color: #D1E8E4;
 }
 .progress{
   text-align: left;
-  background-color: #FABB3D ;
+   background-color: #FABB3D ;
 }
 
 .progress > h3,h4,p,button,h1{
