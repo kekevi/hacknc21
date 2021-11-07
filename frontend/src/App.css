@@ -114,10 +114,12 @@ html, body, #root {
 }
 .progress{
   text-align: left;
+  background-color: #FABB3D ;
 }
 
 .progress > h3,h4,p,button,h1{
  margin-left: 10%;
+
  
 }
 
@@ -138,4 +140,12 @@ html, body, #root {
 
 .green {
   color: green;
+}
+
+.title{
+ text-align: center ;
+ padding: 0%;
+
+
+
 }
