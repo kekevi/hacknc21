@@ -9,7 +9,7 @@ import {
     PlaidLinkOnSuccess,
   } from 'react-plaid-link';
 import axios from "axios";
-const plaid = require("plaid");
+//  const plaid = require("plaid");
 
 
 export function Login({ login, update, update2 }) {
