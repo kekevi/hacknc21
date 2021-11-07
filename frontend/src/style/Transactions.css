@@ -1,0 +1,28 @@
+.transactions-page {
+    background-color: #282c34;
+    overflow: auto;
+    min-height: 100%;
+    position: relative;
+}
+
+.margin {
+    width: 85%;
+    margin: auto;
+}
+
+.paper {
+    background-color: #eee;
+    margin: auto;
+    padding: 20px;
+    position: relative;
+    top: 150px;
+}
+
+.amount, .mcc {
+    text-align: right;
+    font-weight: 600;
+}
+
+.paper table {
+    margin: auto
+}

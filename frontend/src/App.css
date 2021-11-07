@@ -38,6 +38,19 @@ html, body, #root {
   flex-direction: column;
 }
 
+.dark-button {
+  background-color: #282c34;
+  color: #eeeeee;
+  height: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: none;
+  font-family: inherit;
+  font-weight: 500;
+  margin: 0;
+  border-radius: 5px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -86,4 +99,17 @@ html, body, #root {
   margin:auto;
  
 
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
 }

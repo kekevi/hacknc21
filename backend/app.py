@@ -77,6 +77,11 @@ def user_summary(uid):
         totalPaidBalance=calcTotalPaid(uid)
     )
 
+@app.get("/user/<uid>/transactions")
+def get_all_transactions(uid):
+    uid = int(uid)
+    return jsonify(users[uid]['transactions'])
+
 
 @app.get("/user/<uid>/limits")
 def user_limits(uid):

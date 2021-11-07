@@ -7,6 +7,9 @@ import { Login } from './Login';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {getPercentages} from './MathFunction'
+import RequestForm from './RequestForm';
+import Transactions from './Transactions';
+
 
 
 function App() {
@@ -29,11 +32,17 @@ function App() {
 
             <Progress percentInner={userBalance[0]} percentGro={userBalance[1]} uid = {userId} ></Progress>
             <PieChartImpl></PieChartImpl>
+            <button onClick={() => setRoute('transactions')}>See Transaction History</button>
+            <button onClick={() => setRoute('request_spend')}>Spend Request</button>
           </div>
         )
       case "transactions":
         return (
-          <div>Page does not exist yet.</div>
+          <Transactions id={userId} goto={setRoute}/>
+        )
+      case "request_spend":
+        return (
+          <RequestForm id={userId} goto={setRoute}/>
         )
     }
   }
