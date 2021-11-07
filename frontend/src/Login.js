@@ -12,7 +12,7 @@ import axios from "axios";
 const plaid = require("plaid");
 
 
-export function Login({ login, update }) {
+export function Login({ login, update, update2 }) {
     const [errorMsg, setErrorMsg] = useState("");
 
     const [linkToken, setLinkToken] = useState(null);
@@ -38,8 +38,23 @@ export function Login({ login, update }) {
     let user;
     const handleLoginClick = async () => {
         if (user == 0) {
+
+            let limit = [];
+            let spent = [];
+
+            getInfo(user).then(val => { return val.json() }).then((val) => { update(val) });
+            getLimit(user).then(val => { return val.json() }).then((val) => {
+                for(let i = 0; i < val.length; i ++){
+                    limit[i] = val[i].limit;
+                    spent[i] = val[i].used;
+                    console.log(limit[i])
+                }
+                update2(limit,spent);
+            });
+
             login(user);
-            // getInfo(user).then(val => {return val.json()}).then((val) => {update(val)});
+
+
         } else {
             setErrorMsg("Invalid user id. Please contact your bank for more information.");
         }
@@ -68,7 +83,9 @@ export function Login({ login, update }) {
                 <form>
                     <div className="formobj">
                         <label for="userid">User ID: </label>
-                        <input id="userid" type="number" onChange={(e) => user = Number(e.target.value)}/>
+
+                        <input id="userid" type="number" onChange={(e) => user = Number(e.target.value)} />
+                        
                     </div>
                     <div className="formobj">
                         <label for="password">Password: </label>
@@ -94,6 +111,53 @@ export function Login({ login, update }) {
     )
 }
 
+  const Link= (props) => {
+    const onSuccess = React.useCallback((public_token, metadata) => {
+      // send public_token to server
+      const response = fetch('/api/set_access_token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ public_token }),
+      });
+      // Handle response ...
+    }, []);
+    const config = {
+      token: props.linkToken,
+      onSuccess,
+    };
+    const { open, ready } = usePlaidLink(config);
+    return (
+      <button onClick={() => open()} disabled={!ready}>
+        Link account
+      </button>
+    );
+
+// function SignupModal () {
+//     return {
+
+}
+
+function getInfo(user) {
+    const response = fetch(`http://localhost:5000/user/${user}`, {
+        method: 'GET',
+
+    })
+
+
+    return response;
+
+}
+
+function getLimit(user) {
+    const response = fetch(`http://localhost:5000/user/${user}/limits`, {
+        method: 'GET',
+
+    })
+
+    return response;
+}
 
 // var PLAID_CLIENT_ID = "your client ID here";
 // var PLAID_SECRET = "your secret key here";
